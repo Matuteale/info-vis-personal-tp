@@ -1,10 +1,10 @@
 package model
 
 type ProcessedData struct {
-	OnFootTime        map[int]map[int]int64     `json:"onFootTimeSec"`    // By year and month
-	OnVehicleTime     map[int]map[int]int64     `json:"onVehicleTimeSec"` // By year and month
-	OnFootSegments    map[int]map[int][]Segment `json:"onFootSegments"`
-	OnVehicleSegments map[int]map[int][]Segment `json:"OnVehicleSegments"`
+	OnFootTime        map[int]map[int]int64     `json:"onFootTimeSec,omitempty"`    // By year and month
+	OnVehicleTime     map[int]map[int]int64     `json:"onVehicleTimeSec,omitempty"` // By year and month
+	OnFootSegments    map[int]map[int][]Segment `json:"onFootSegments,omitempty"`
+	OnVehicleSegments map[int]map[int][]Segment `json:"OnVehicleSegments,omitempty"`
 }
 
 type Segment struct {
