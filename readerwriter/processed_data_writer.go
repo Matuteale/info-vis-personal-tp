@@ -3,10 +3,9 @@ package readerwriter
 import (
 	"encoding/json"
 	"io/ioutil"
-	"projects/info-vis-personal-tp/model"
 )
 
-func WriteProcessedData(fileName string, processedData *model.ProcessedData) error {
+func WriteProcessedData(fileName string, processedData interface{}) error {
 	asBytes, err := json.Marshal(processedData)
 	if err != nil {
 		return err
