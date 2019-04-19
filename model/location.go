@@ -20,15 +20,15 @@ type PossibleActivity struct {
 }
 
 const (
-	typeStill                = "STILL"
-	typeOnFoot               = "ON_FOOT"
-	typeWalking              = "WALKING"
-	typeUnkwown              = "UNKNOWN"
-	typeOnBiclycle           = "ON_BICYCLE"
-	typeInVehicle            = "IN_VEHICLE"
-	typeRunning              = "RUNNING"
-	typeInRoadVehicle        = "IN_ROAD_VEHICLE"
-	typeInRailVehicle        = "IN_RAIL_VEHICLE"
-	typeInTwoWheelerVehicle  = "IN_TWO_WHEELER_VEHICLE"
-	typeInFourWheelerVehicle = "IN_FOUR_WHEELER_VEHICLE"
+	TypeStill                = "STILL"
+	TypeOnFoot               = "ON_FOOT"
+	TypeWalking              = "WALKING"
+	TypeUnkwown              = "UNKNOWN"
+	TypeOnBicycle            = "ON_BICYCLE"
+	TypeInVehicle            = "IN_VEHICLE"
+	TypeRunning              = "RUNNING"
+	TypeInRoadVehicle        = "IN_ROAD_VEHICLE"
+	TypeInRailVehicle        = "IN_RAIL_VEHICLE"
+	TypeInTwoWheelerVehicle  = "IN_TWO_WHEELER_VEHICLE"
+	TypeInFourWheelerVehicle = "IN_FOUR_WHEELER_VEHICLE"
 )

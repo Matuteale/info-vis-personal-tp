@@ -1,10 +1,10 @@
 package model
 
 type LocationStatistics struct {
-	OnFootTime        map[int]map[int]int64 `json:"onFootTimeSec,omitempty"`     // By year and month
-	OnVehicleTime     map[int]map[int]int64 `json:"onVehicleTimeSec,omitempty"`  // By year and month
-	OnFootDistance    map[int]map[int]int64 `json:"OnFootDistance,omitempty"`    // By year and month
-	OnVehicleDistance map[int]map[int]int64 `json:"onVehicleDistance,omitempty"` // By year and month
+	OnFootTime        map[int]map[int]map[int]int64   `json:"onFootTimeSec,omitempty"`     // By year and month and day
+	OnVehicleTime     map[int]map[int]map[int]int64   `json:"onVehicleTimeSec,omitempty"`  // By year and month and day
+	OnFootDistance    map[int]map[int]map[int]float64 `json:"OnFootDistance,omitempty"`    // By year and month and day
+	OnVehicleDistance map[int]map[int]map[int]float64 `json:"onVehicleDistance,omitempty"` // By year and month and day
 }
 
 type LocationGeoJSON struct {
