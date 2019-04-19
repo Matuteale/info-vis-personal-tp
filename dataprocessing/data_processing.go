@@ -16,12 +16,12 @@ func LocationsToStatistics(locations []model.Location) (model.LocationStatistics
 	return statistics, nil
 }
 
-func LocationsToGeoJSON(locations []model.Location) (model.LocationGeoJSON, error) {
+func LocationsToGeoJSON(locations []model.Location, year int) (model.LocationGeoJSON, error) {
 	var features []model.Feature
 	var longitude float64
 	var latitude float64
 	for _, location := range locations {
-		if time.Unix(0, location.TimestampMs*int64(time.Millisecond)).Year() == 2018 {
+		if time.Unix(0, location.TimestampMs*int64(time.Millisecond)).Year() == year {
 			longitude = location.LongitudeE7 / 1E7
 			if longitude > 180 {
 				longitude = longitude - (math.MaxUint32 / 1E7)

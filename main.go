@@ -35,7 +35,7 @@ func main() {
 		return
 	}
 	println("Processing raw full location history geoJSON...")
-	geoJSON, err := dataprocessing.LocationsToGeoJSON(locations)
+	geoJSON, err := dataprocessing.LocationsToGeoJSON(locations, 2018)
 	if err != nil {
 		println("Error while processing location history data to statistics. Error: %v", err)
 		return
