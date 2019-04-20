@@ -7,27 +7,25 @@ import (
 )
 
 func LocationsToGeoJSON(locations []model.Location, year int) (model.LocationGeoJSON, error) {
-	var features []model.Feature
-	var longitude float64
-	var latitude float64
 	geoJSON := model.LocationGeoJSON{
-		Type:     "FeatureCollection",
-		Features: features,
+		Type: "FeatureCollection",
 	}
 	if len(locations) == 0 {
 		return geoJSON, nil
 	}
+	var features []model.Feature
 	for _, location := range locations {
 		if time.Unix(0, location.TimestampMs*int64(time.Millisecond)).Year() == year {
 			features = append(features, model.Feature{
 				Type: "Feature",
 				Geometry: model.Geometry{
 					Type:        "Point",
-					Coordinates: []float64{convertToGPSFormat(longitude), convertToGPSFormat(latitude)},
+					Coordinates: []float64{convertToGPSFormat(location.LongitudeE7), convertToGPSFormat(location.LatitudeE7)},
 				},
 			})
 		}
 	}
+	geoJSON.Features = features
 	return geoJSON, nil
 }
 
@@ -61,11 +59,11 @@ func LocationsToStatistics(locations []model.Location) (model.LocationStatistics
 			continue
 		}
 		currentLocationDate = time.Unix(0, currentLocation.TimestampMs*int64(time.Millisecond))
-		if lastLocationDate.Year() == currentLocationDate.Year() && lastLocationDate.Month() == currentLocationDate.Month() && lastLocationDate.Day() == currentLocationDate.Day() {
-			if isOnVehicle(lastLocation) {
+		if isSameTrackDate(lastLocationDate, currentLocationDate) {
+			if isOnVehicle(lastLocation, currentLocation) {
 				auxOnVehicleDistance += getDistanceBetween(lastLocation, currentLocation)
 				auxOnVehicleTime += (currentLocation.TimestampMs - lastLocation.TimestampMs)
-			} else if isOnFoot(lastLocation) {
+			} else if isOnFoot(lastLocation, currentLocation) {
 				auxOnFootDistance += getDistanceBetween(lastLocation, currentLocation)
 				auxOnFootTime += (currentLocation.TimestampMs - lastLocation.TimestampMs)
 			}
@@ -111,9 +109,13 @@ func LocationsToStatistics(locations []model.Location) (model.LocationStatistics
 			auxOnFootTime = 0
 		}
 		lastLocationDate = currentLocationDate
+		lastLocation = currentLocation
 	}
-	// chequear si se sumó la última locación
 	return statistics, nil
+}
+
+func isSameTrackDate(lastLocationDate time.Time, currentLocationDate time.Time) bool {
+	return lastLocationDate.Year() == currentLocationDate.Year() && lastLocationDate.Month() == currentLocationDate.Month() && lastLocationDate.Day() == currentLocationDate.Day() && (currentLocationDate.Minute()-lastLocationDate.Minute()) <= 10
 }
 
 func convertToGPSFormat(axis float64) float64 {
@@ -135,17 +137,17 @@ func getDistanceBetween(location model.Location, other model.Location) float64 {
 }
 
 func isValidLocation(location model.Location) bool {
-	return len(location.Activities) > 0 && len(location.Activities[0].PossibleActivities) > 0 && location.Activities[0].PossibleActivities[0].Confidence > 60 && location.Activities[0].PossibleActivities[0].Type != model.TypeUnkwown
+	return location.Accuracy < 1000
 }
 
-func isStill(location model.Location) bool {
-	return location.Activities[0].PossibleActivities[0].Type == model.TypeStill
+func isOnFoot(lastLocation model.Location, currentLocation model.Location) bool {
+	dist := getDistanceBetween(lastLocation, currentLocation)
+	distTime := (currentLocation.TimestampMs - lastLocation.TimestampMs)
+	return dist/float64((distTime/1000)) <= 1.6
 }
 
-func isOnFoot(location model.Location) bool {
-	return !isStill(location) && (location.Activities[0].PossibleActivities[0].Type == model.TypeOnFoot || location.Activities[0].PossibleActivities[0].Type == model.TypeWalking || location.Activities[0].PossibleActivities[0].Type == model.TypeRunning)
-}
-
-func isOnVehicle(location model.Location) bool {
-	return !isStill(location) && !isOnFoot(location)
+func isOnVehicle(lastLocation model.Location, currentLocation model.Location) bool {
+	dist := getDistanceBetween(lastLocation, currentLocation)
+	distTime := (currentLocation.TimestampMs - lastLocation.TimestampMs)
+	return dist/float64((distTime/1000)) > 1.6
 }
