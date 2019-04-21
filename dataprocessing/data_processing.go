@@ -143,11 +143,11 @@ func isValidLocation(location model.Location) bool {
 func isOnFoot(lastLocation model.Location, currentLocation model.Location) bool {
 	dist := getDistanceBetween(lastLocation, currentLocation)
 	distTime := (currentLocation.TimestampMs - lastLocation.TimestampMs)
-	return dist/float64((distTime/1000)) <= 1.6
+	return dist/float64((distTime/1000)) <= 3
 }
 
 func isOnVehicle(lastLocation model.Location, currentLocation model.Location) bool {
 	dist := getDistanceBetween(lastLocation, currentLocation)
 	distTime := (currentLocation.TimestampMs - lastLocation.TimestampMs)
-	return dist/float64((distTime/1000)) > 1.6
+	return dist/float64((distTime/1000)) > 3
 }

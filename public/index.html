@@ -81,12 +81,10 @@
       }
       let reader = new FileReader();
       reader.onload = function(e) {
-        console.log(statistics);
         let result;
         result = processRawLocationHistory(JSON.parse(e.target.result));
         statistics = result[0];
         $("#year").attr("placeholder", `Year (${result[1]}-${result[2]})`);
-        console.log(statistics);
       };
       reader.onloadstart = function(e) {
         $("#button").attr("disabled", true)
