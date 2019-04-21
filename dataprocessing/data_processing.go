@@ -115,7 +115,7 @@ func LocationsToStatistics(locations []model.Location) (model.LocationStatistics
 }
 
 func isSameTrackDate(lastLocationDate time.Time, currentLocationDate time.Time) bool {
-	return lastLocationDate.Year() == currentLocationDate.Year() && lastLocationDate.Month() == currentLocationDate.Month() && lastLocationDate.Day() == currentLocationDate.Day() && (currentLocationDate.Minute()-lastLocationDate.Minute()) <= 10
+	return lastLocationDate.Year() == currentLocationDate.Year() && lastLocationDate.Month() == currentLocationDate.Month() && lastLocationDate.Day() == currentLocationDate.Day() && ((currentLocationDate.Hour()*60+currentLocationDate.Minute())-(lastLocationDate.Hour()*60+lastLocationDate.Minute())) <= 10
 }
 
 func convertToGPSFormat(axis float64) float64 {
