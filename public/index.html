@@ -48,9 +48,9 @@
         <input type="file" id="fileInput" accept=".json"/>
       </div>
       <div style="text-align: center;margin-top:10px;">
-        <input id="day" type="number" placeholder="Day" style="width:50px"/>
-        <input id="month" type="number" placeholder="Month" style="width:50px"/>
-        <input id="year" type="number" value="2018" placeholder="Year (2014-2019)" style="width:120px"/>
+        <input id="day" type="number" min="1" max="31" placeholder="Day" style="width:50px"/>
+        <input id="month" type="number" min="1" max="12" placeholder="Month" style="width:50px"/>
+        <input id="year" type="number" min="2000" max="2030" value="2018" placeholder="Year (2014-2019)" style="width:120px"/>
         <input id="aggregate" type="checkbox" checked/>
         <span style="color:white;font-size:14px">Aggregate</span>
         <button id="button" style="background-color:white;font-size:14px">Generate charts</button>
@@ -268,12 +268,12 @@
     var isOnFoot = function(lastLocation, currentLocation) {
       let dist = getDistanceBetween(lastLocation, currentLocation);
       let distTime = (+currentLocation.timestampMs - +lastLocation.timestampMs);
-      return dist/(distTime/1000) <= 1.6;
+      return dist/(distTime/1000) <= 3;
     }
     var isOnVehicle = function(lastLocation, currentLocation) {
       let dist = getDistanceBetween(lastLocation, currentLocation);
       let distTime = (+currentLocation.timestampMs - +lastLocation.timestampMs);
-      return dist/(distTime/1000) > 1.6;
+      return dist/(distTime/1000) > 3;
     }
     var processRawLocationHistory = function(rawLocationHistory){
       let locations = rawLocationHistory.locations;
