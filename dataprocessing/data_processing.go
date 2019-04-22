@@ -149,5 +149,5 @@ func isOnFoot(lastLocation model.Location, currentLocation model.Location) bool 
 func isOnVehicle(lastLocation model.Location, currentLocation model.Location) bool {
 	dist := getDistanceBetween(lastLocation, currentLocation)
 	distTime := (currentLocation.TimestampMs - lastLocation.TimestampMs)
-	return dist/float64((distTime/1000)) > 3
+	return dist/float64((distTime/1000)) > 3 && dist/float64((distTime/1000)) < 45
 }
