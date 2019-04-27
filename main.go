@@ -41,7 +41,7 @@ func main() {
 		return
 	}
 	println("Writing processed location history geoJSON...")
-	err = readerwriter.WriteProcessedData("processed_data/locations_2018.geojson", geoJSON)
+	err = readerwriter.WriteProcessedData("processed_data/locations_2014_2019.geojson", geoJSON)
 	if err != nil {
 		println("Error writing processed location history geoJSON. Error: %v", err)
 		return

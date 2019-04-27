@@ -57,7 +57,11 @@
       </div>
     </div>
     <div class="content">
-      <div>
+      <div id="locationsMap">
+        <div style="text-align: center;font-size: 24px;color:#616161">PRE-LOADED LOCATIONS MAP</div>
+        <img style="width: 800px;margin-left: auto;margin-right: auto;display: block;" src="https://lh3.googleusercontent.com/ODhWme1VXspFY3mrBA-PL3rXjYtUaaI1Fx9vDyamR9aIWrv_U6OfUyU2I9ZLLeoHYcWmLEA1rhdxG6u_BqDNjZqMPlnkINo85kLXbccRIcq_BgmaJ_cIuUkSAFoyrU_OVOI2LDaH1IrxamvKV7I-JsFv1nMtmOLv1wSsoe8seH7ldpxJvkR4JblitJas9PttjmB7uqDESjeQyiwQ4PvIAW383pn15fXGAKvoIyk53I7aSMH1G1ZuZrDyDsuLzYM_Ux4WLfA3ExFM6vKAmBczz9dVH4eHahd_BieqSxERHtayN0zsNjuW4BTSuJVszCARKECRsxgr3WzeK97TtpFsM8gHZkVC75NabrFNoyn2pe3m2_DbcXbTfGO16QYvN54RXwl6dfu5_rn4x7fYe5R2vA4vEuO1hwYHlIts3cYufCTdHt1VhZAj2XQu6QVZOGhzmxx7-q0OhH7LmTj3H1-Tehu1P6Y5dR3WHAzZv0wLzyUnXYqOtCEXTGUR12kLmxWIVIR3N4O8JuywxEuwPkYzRp9ki8RgFbnuWZ3P5IyESXeVO-MbgzFfkNc5C_P6p4PHsxN1EjyDARnMAZwS_3dwQrMhkrzWr1-M76aoz6kU680PPqH8mloaqTZFAyRCWOt_YiiZA52zG4AhMwp_GThkEjKV5yctsA=w2234-h1396-no"/>
+      </div>
+      <div style="margin-top: 10px">
         <div style="text-align: center;font-size: 24px;color:#616161">TIME CHART</div>
         <div id="timeChart" style="overflow: hidden"></div>
       </div>
@@ -84,6 +88,7 @@
         let result;
         result = processRawLocationHistory(JSON.parse(e.target.result));
         statistics = result[0];
+        $("#locationsMap").css("display", "none");
         $("#year").attr("placeholder", `Year (${result[1]}-${result[2]})`);
       };
       reader.onloadstart = function(e) {

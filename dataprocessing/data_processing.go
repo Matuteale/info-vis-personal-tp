@@ -15,15 +15,13 @@ func LocationsToGeoJSON(locations []model.Location, year int) (model.LocationGeo
 	}
 	var features []model.Feature
 	for _, location := range locations {
-		if time.Unix(0, location.TimestampMs*int64(time.Millisecond)).Year() == year {
-			features = append(features, model.Feature{
-				Type: "Feature",
-				Geometry: model.Geometry{
-					Type:        "Point",
-					Coordinates: []float64{convertToGPSFormat(location.LongitudeE7), convertToGPSFormat(location.LatitudeE7)},
-				},
-			})
-		}
+		features = append(features, model.Feature{
+			Type: "Feature",
+			Geometry: model.Geometry{
+				Type:        "Point",
+				Coordinates: []float64{convertToGPSFormat(location.LongitudeE7), convertToGPSFormat(location.LatitudeE7)},
+			},
+		})
 	}
 	geoJSON.Features = features
 	return geoJSON, nil
